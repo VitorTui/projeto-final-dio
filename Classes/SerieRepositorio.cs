@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using projFinal.Classes;
 using projFinal.Interfaces;
 
 namespace projFinal
@@ -31,7 +32,7 @@ namespace projFinal
            return listaSerie.Count;
         }
 
-        public Serie RetornaId(int id)
+        public Serie RetornaPorId(int id)
         {
             return listaSerie[id];
         }

@@ -1,8 +1,11 @@
 ﻿using System;
+using projFinal.Classes;
+
 namespace projFinal
 {
     class Program
     {
+        static SerieRepositorio repositorio = new SerieRepositorio();
         static void Main(string[] args)
         {
              string opcaoUsuario = ObterOpcaoUsuario();
@@ -20,15 +23,15 @@ namespace projFinal
                     break;
 
                      case "3":
-                        AtualizarSeries();
+                        AtualizarSerie();
                     break;
 
                      case "4":
-                        ExcluirSeries();
+                        ExcluirSerie();
                     break;
 
                      case "5":
-                        VisualizarSeries();
+                        VisualizarSerie();
                     break;
 
                      case "C":
@@ -39,10 +42,114 @@ namespace projFinal
                     throw new ArgumentOutOfRangeException();
 
                 }
+
+                opcaoUsuario = ObterOpcaoUsuario();
+              
             }
-        {
-            
+        
+            Console.WriteLine("Obrigado por utilizar nossos serviços");
+            Console.ReadLine();
+        
         }
+
+            private static void ExcluirSerie()
+            {
+                 Console.Write("digite o id série: ");
+                int indicaSerie = int.Parse(Console.ReadLine());
+
+                repositorio.Exclui(indicaSerie);
+                
+            }
+
+             private static void VisualizarSerie()
+             {
+                 Console.Write("digite o id série: ");
+                int indicaSerie = int.Parse(Console.ReadLine());
+
+                var serie = repositorio.RetornaPorId(indicaSerie);
+
+                Console.WriteLine(serie);
+             }
+            private static void AtualizarSerie()
+            {
+                Console.Write("digite o id série: ");
+                int indicaSerie = int.Parse(Console.ReadLine());
+                
+
+            foreach (int i in Enum.GetValues(typeof(Genero)))
+            {
+                Console.WriteLine("{0}-{1}", i, Enum.GetName(typeof(Genero), i));
+            }
+
+            Console.Write("Digite o genêro entre as opções acima ");
+            int entradaGenero = int.Parse(Console.ReadLine());
+
+            Console.Write("Digite o Título da série: ");
+            string entradaTitulo = (Console.ReadLine());
+
+             Console.Write("Digite o Ano da série: ");
+            string entradaAno = (Console.ReadLine());
+
+             Console.Write("Digite a Descrição da série: ");
+            string entradaDescricao = (Console.ReadLine());
+
+            Serie novaSerie = new  Serie(id: repositorio.ProximoId(), 
+                                                                genero: (Genero)entradaGenero, 
+                                                                titulo: entradaTitulo,
+                                                                ano: entradaAno,
+                                                                descricao: entradaDescricao);
+            }
+       
+        private static void ListarSeries()
+        {
+            Console.WriteLine("Listar séries");
+
+            var lista = repositorio.Lista();
+
+            if (lista.Count == 0)
+            {
+                Console.WriteLine("Nenhuma série cadastrada");
+                return;
+            }
+
+            foreach (var serie in lista)
+            {
+                var excluido = serie.retornaExcluido();
+                Console.WriteLine("#ID {0}: - {1} {2}", serie.retornaId(), serie.retornaTitulo(), (excluido ? "*Excluido*" : ""));
+            }
+
+        }
+
+        private static void InserirSeries()
+        {
+            Console.WriteLine("Inserir nova série");
+
+            foreach (int i in Enum.GetValues(typeof(Genero)))
+            {
+                Console.WriteLine("{0}-{1}", i, Enum.GetName(typeof(Genero), i));
+            }
+
+            Console.Write("Digite o genêro entre as opções acima ");
+            int entradaGenero = int.Parse(Console.ReadLine());
+
+            Console.Write("Digite o Título da série: ");
+            string entradaTitulo = (Console.ReadLine());
+
+             Console.Write("Digite o Ano da série: ");
+            string entradaAno = (Console.ReadLine());
+
+             Console.Write("Digite a Descrição da série: ");
+            string entradaDescricao = (Console.ReadLine());
+
+            Serie novaSerie = new  Serie(id: repositorio.ProximoId(), 
+                                                                genero: (Genero)entradaGenero, 
+                                                                titulo: entradaTitulo,
+                                                                ano: entradaAno,
+                                                                descricao: entradaDescricao);
+                                                                
+                                                                
+        }
+        private static string ObterOpcaoUsuario()
         {
             Console.WriteLine();
             Console.WriteLine("Séries Ao Seu Dispor");
@@ -59,8 +166,9 @@ namespace projFinal
         
             string OpcaoUsuario = Console.ReadLine().ToUpper();
             Console.WriteLine();
-            return opcaoUsuario;
+            return OpcaoUsuario;
         }   
         }
+
     } 
-}
+

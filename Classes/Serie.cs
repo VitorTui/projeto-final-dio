@@ -2,6 +2,8 @@ namespace projFinal.Classes
 {
     public class Serie : EntidadeBase
     {
+        private string? ano;
+
         private Genero Genero { get; set; }
         private string Titulo { get; set; }
         private string Descricao { get; set; }
@@ -19,6 +21,15 @@ namespace projFinal.Classes
             this.Excluido = false;
         }
 
+        public Serie(int id, Genero genero, string? titulo, string? ano, string? descricao)
+        {
+            Id = id;
+            Genero = genero;
+            Titulo = titulo;
+            this.ano = ano;
+            Descricao = descricao;
+        }
+
         public override string ToString()
         {
             string retorno = "";
@@ -26,6 +37,7 @@ namespace projFinal.Classes
             retorno += "Título: " + this.Titulo + Environment.NewLine;
             retorno += "Descrição: " + this.Descricao + Environment.NewLine;
             retorno += "Ano de Início: " + this.Ano + Environment.NewLine;
+            retorno += "Excuído: " + this.Excluido;
             return retorno;
             
         
@@ -41,6 +53,10 @@ namespace projFinal.Classes
                 return this.Id;
             }
 
+            public bool retornaExcluido()
+            {
+                return this.Excluido;
+            }
             public void Excluir() {
                 this.Excluido = true;
             }
